@@ -1,13 +1,29 @@
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const JoinRide = () => {
-  const { currentValue } = useSelector((store) => store.items);
-  
+  const { currentValue, newItem } = useSelector((store) => store.items);
+  const [filteredRides, setFilteredRides] = useState([]);
+
+  useEffect(() => {
+    let rideData = localStorage.getItem("ridedata");
+
+    if (rideData) {
+      try {
+        rideData = JSON.parse(rideData);
+      } catch (error) {
+        console.error("Error parsing localStorage data:", error);
+      }
+
+      const filtered = newItem.filter((trip) => trip.id === rideData);
+      setFilteredRides(filtered);
+    }
+  }, [newItem]);
+
   return (
-    <>
-      {" "}
-      <ul className="travel-list">
-        {currentValue.map((trip) => (
+    <ul className="travel-list">
+      {filteredRides.length > 0 ? (
+        filteredRides.map((trip) => (
           <li key={trip.id} className="travel-item">
             <p>
               <strong>Date:</strong> {trip.date}
@@ -26,17 +42,19 @@ const JoinRide = () => {
             </p>
             <button
               onClick={() => {
-                // dispatch(itemAction.adding(trip));
-                // handleIncrement()
-                
+                // Add your remove logic here
+                console.log("Removing ride:", trip.id);
               }}
             >
               Remove
             </button>
           </li>
-        ))}
-      </ul>
-    </>
+        ))
+      ) : (
+        <p>No matching rides found.</p>
+      )}
+    </ul>
   );
 };
+
 export default JoinRide;
