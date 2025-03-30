@@ -1,11 +1,17 @@
 import { useRef, useState } from "react";
 import styles from "./PublishRide.module.css";
 import { db } from "../firebaseConfig";
-import { addDoc,collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
+import { VscDebugBreakpointLog } from "react-icons/vsc";
+import { useDispatch } from "react-redux";
+// import { TbPoint } from "react-icons/tb";
+import { itemAction } from "../store/counter";
+import { TbPointFilled } from "react-icons/tb";
 const PublishRide = ({}) => {
   const leavingfrom = useRef();
   const goingto = useRef();
+  const dispatch = useDispatch();
   // const [spinnerval,setspinnerval] = useState(0)
   const dateofride = useRef();
   const refTest = collection(db, "RideData");
@@ -30,7 +36,7 @@ const PublishRide = ({}) => {
       setalertTitle("Error");
       showAlert("error", "Error", "Please fill in all the details first.");
       return;
-    } 
+    }
     let data = {
       leaving,
       going,
@@ -44,12 +50,12 @@ const PublishRide = ({}) => {
     timeride.current.value = "";
     try {
       addDoc(refTest, data);
+      // dispatch(itemAction.itemadd(data))
       showAlert("success", "Success", "Successfully posted the ride.");
     } catch (err) {
       // alert("Some error occured in database. Contact the developer");
       showAlert("success", "Success", "Successfully posted the ride.");
     }
-    
   };
 
   const showAlert = (icon, title, message) => {
@@ -67,79 +73,85 @@ const PublishRide = ({}) => {
   return (
     <>
       <div className={styles["main-login-div"]}>
-        <main className="form-signin w-100 m-auto">
-          <form onSubmit={handleSubmit}>
-            <h1 className={` ${styles["h1-color"]} h3 mb-3 fw-normal`}>
-              Publish Ride
-            </h1>
-
-            <div className="form-floating">
+        <main className="mainform">
+          <form onSubmit={handleSubmit} className={`${styles.formmain}`}>
+            <h1 className={` ${styles["h1-color"]}`}>Publish Ride</h1>
+            <p className={`${styles.para}`}>
+              Add your trip details, hop in, and go.
+            </p>
+            <div className={`${styles.inputfield}`}>
+              <div className={styles.iconinput}><TbPointFilled/></div>
               <input
                 type="text"
-                className="form-control"
+                className={`${styles["input-div"]}`}
                 id="leavingFrom"
-                placeholder="Leaving From"
+                placeholder="Enter location"
                 ref={leavingfrom}
               />
-              <label htmlFor="floatingInput">Leaving From</label>
+
             </div>
-            <div className="form-floating">
+            <div className={`${styles.inputfield}`}>
+              <div className={styles.iconinput}><VscDebugBreakpointLog/></div>
               <input
                 type="text"
-                className="form-control"
+                className={`${styles["input-div"]}`}
                 id="goingTO"
-                placeholder="Going To"
+                placeholder="Enter destination"
                 ref={goingto}
               />
-              <label htmlFor="floatingdate">Going To</label>
             </div>
-            <div>
+            <div className={`${styles.inputfield}`}>
+              <div className={styles.iconinput}><TbPointFilled/></div>
               <input
                 type="date"
-                className={`${styles["date-control"]} form-control`}
+                className={`${styles["input-div"]}`}
                 ref={dateofride}
               />
             </div>
-            <div>
+            <div className={`${styles.inputfield}`}>
+              <div className={styles.iconinput}><VscDebugBreakpointLog/></div>
               <input
                 type="time"
                 ref={timeride}
-                className={`${styles["time-control"]} form-control`}
+                className={`${styles["input-div"]}`}
               />
             </div>
 
-            <button
-              className={`btn btn-primary w-100 py-2 ${styles["publish-ride"]}`}
-              type="submit"
-            >
+            <button className={`${styles["publish-ride"]}`} type="submit">
               Publish Ride
             </button>
           </form>
         </main>
-        <div className={`container ${styles["footer-margin"]}`}>
-          <footer className="py-3 my-4">
-            <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-              <li className="nav-item">
-                <a href="#" className="nav-link px-2 text-body-secondary">
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="#" className="nav-link px-2 text-body-secondary">
-                  Terms
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="#" className="nav-link px-2 text-body-secondary">
-                  Contact
-                </a>
-              </li>
-            </ul>
-            <p className="text-center text-body-secondary">
-              © 2025 RideShare, NITJ
-            </p>
-          </footer>
+        <div>
+          <img
+            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_576,w_576/v1683919251/assets/42/a29147-e043-42f9-8544-ecfffe0532e9/original/travel-ilustra.png"
+            alt=""
+          />
         </div>
+      </div>
+      <div className={`container ${styles["footer-margin"]}`}>
+        <footer className="py-3 my-4">
+          <ul className="nav justify-content-center border-bottom pb-3 mb-3">
+            <li className="nav-item">
+              <a href="#" className="nav-link px-2 text-body-secondary">
+                About
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link px-2 text-body-secondary">
+                Terms
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link px-2 text-body-secondary">
+                Contact
+              </a>
+            </li>
+          </ul>
+          <p className="text-center text-body-secondary">
+            © 2025 RideShare, NITJ
+          </p>
+        </footer>
       </div>
     </>
   );

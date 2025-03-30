@@ -4,6 +4,7 @@ import PublishRide from "./PublishRide";
 import AvailableRide from "./AvailableRide";
 import Sidebar from "./Sidebar";
 import JoinRide from "./JoinRide";
+import Header from "./Header";
 // import { SignIn } from "../store/SignUp-store";
 // import MainShoppingPage from "./MainShoppingPage";
 // import ShoppingCart from "./ShoppingCart";
@@ -26,7 +27,7 @@ const HomePage = ({ loginTOhome, homepage,fetchData }) => {
   }
   return (
     <>
-      <div className={styles["main-header"]}>
+      {/* <div className={styles["main-header"]}>
         <div className={styles["one-header"]}>
           <img
             className={styles["one-header-img-smartbasket"]}
@@ -66,7 +67,8 @@ const HomePage = ({ loginTOhome, homepage,fetchData }) => {
             }}
           />
         </div>
-      </div>
+      </div> */}
+      <Header changingPublish={changingPublish} avaiLableChange={avaiLableChange} setjoinride={setjoinride} changingSidebar={changingSidebar}/>
       {sidebar === 1 && (
         <Sidebar
           

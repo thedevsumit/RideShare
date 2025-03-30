@@ -1,0 +1,29 @@
+.main-available{
+    display: grid;
+    overflow-y: scroll;
+    grid-template-rows: repeat(2,1fr);
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    padding: 2rem;
+}
+.travel-item{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    list-style: none;
+}
+.travel-item:hover{
+    scale: 1.01;
+}
+@media screen and (max-width:900px){
+    .main-available{
+        display: grid;
+        overflow-y: scroll;
+        grid-template-rows: repeat(2,1fr);
+        grid-template-columns: repeat(1,1fr);
+        margin: 0 auto;
+        gap: 20px;
+        padding: 1rem;
+    }
+    
+}

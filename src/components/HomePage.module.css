@@ -62,6 +62,7 @@ body{
   margin: 6rem auto 0rem auto;
   width: 280px;
   height: 500px;
+  background-color: red;
   border-radius: 10px;
 }
 .main-list{
@@ -70,7 +71,7 @@ body{
   justify-content: center;
   align-items: center;
  margin-right: 100px;
- width: 80%;
+ /* width: 80%; */
 
   margin: auto 0;
   
@@ -83,6 +84,12 @@ body{
   justify-content: center;
   
  
+}
+@media screen and (max-width:980px){
+  .main-list{
+    display: flex;
+    flex-direction: column;
+  }
 }
 .list-items{
  list-style: none;
