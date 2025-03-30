@@ -1,10 +1,14 @@
 .main-available{
     display: grid;
-    overflow-y: scroll;
+    
     grid-template-rows: repeat(2,1fr);
     grid-template-columns: repeat(2,1fr);
     gap: 20px;
     padding: 2rem;
+}
+.travel-container{
+    width: 90vw;
+    margin: 0 auto;
 }
 .travel-item{
     border: 1px solid black;
@@ -27,3 +31,16 @@
     }
     
 }
+
+.button-avaialble {
+    width: 200px;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 2px;
+    border-width: 0px;
+    padding: 10px 16px;
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+  }

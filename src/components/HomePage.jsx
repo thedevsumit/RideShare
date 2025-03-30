@@ -68,7 +68,7 @@ const HomePage = ({ loginTOhome, homepage,fetchData }) => {
           />
         </div>
       </div> */}
-      <Header changingPublish={changingPublish} avaiLableChange={avaiLableChange} setjoinride={setjoinride} changingSidebar={changingSidebar}/>
+      <Header changingPublish={changingPublish} avaiLableChange={avaiLableChange} setjoinride={setjoinride} changingSidebar={changingSidebar} fetchData={fetchData}/>
       {sidebar === 1 && (
         <Sidebar
           

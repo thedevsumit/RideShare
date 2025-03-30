@@ -38,10 +38,12 @@ const PublishRide = ({}) => {
       return;
     }
     let data = {
-      leaving,
-      going,
-      date,
-      time,
+      leaving: leaving,
+      going: going,
+      date: date,
+      time: time,
+      count: 0,
+      
     };
 
     leavingfrom.current.value = "";
@@ -72,6 +74,7 @@ const PublishRide = ({}) => {
 
   return (
     <>
+    <div className={styles.mainbody}>
       <div className={styles["main-login-div"]}>
         <main className="mainform">
           <form onSubmit={handleSubmit} className={`${styles.formmain}`}>
@@ -128,6 +131,7 @@ const PublishRide = ({}) => {
             alt=""
           />
         </div>
+      </div>
       </div>
       <div className={`container ${styles["footer-margin"]}`}>
         <footer className="py-3 my-4">

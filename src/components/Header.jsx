@@ -4,6 +4,7 @@ const Header = ({
   avaiLableChange,
   changingPublish,
   changingSidebar,
+  fetchData
 }) => {
   return (
     <>

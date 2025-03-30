@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 const JoinRide = () => {
   const { currentValue } = useSelector((store) => store.items);
- 
+  
   return (
     <>
       {" "}
@@ -27,6 +27,7 @@ const JoinRide = () => {
             <button
               onClick={() => {
                 // dispatch(itemAction.adding(trip));
+                // handleIncrement()
                 
               }}
             >

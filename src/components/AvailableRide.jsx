@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./AvailableRide.module.css";
+import { incrementNestedValue } from "./Increment";
 import JoinRide from "./JoinRide";
 import { useState } from "react";
 import { itemAction } from "../store/counter";
 const AvailableRide = () => {
   const { newItem } = useSelector((store) => store.items);
   const dispatch = useDispatch();
-
+  const handleIncrement = (docId,nestedKey) => {
+    incrementNestedValue(docId, nestedKey);
+  };
   //   const [joinride,setjoinride] = useState(0)
   return (
     <>
-      {true && (
+      
         <div className="travel-container ">
-          <h2>Travel List</h2>
+          
           <ul className="travel-list main-available">
             {newItem.map((trip) => (
               <li key={trip.id} className="travel-item">
@@ -31,9 +33,14 @@ const AvailableRide = () => {
                 <p>
                   <strong>ID:</strong> {trip.id}
                 </p>
-                <button
+                <p>
+                  <strong>Number of person:</strong> {trip.count}
+                </p>
+                <button 
+                className="button-avaialble"
                   onClick={() => {
                     dispatch(itemAction.adding(trip));
+                    handleIncrement(trip.id,"count")
                   }}
                 >
                   Join
@@ -42,8 +49,8 @@ const AvailableRide = () => {
             ))}
           </ul>
         </div>
-      )}
-      {/* {joinride===1 && <JoinRide/>} */}
+      
+      
     </>
   );
 };
