@@ -47,7 +47,7 @@ const AvailableRide = () => {
                   <strong>Going:</strong> {trip.going}
                 </p>
                 <p>
-                  <strong>Time:</strong> {trip.time}
+                  <strong>Luvpreet:</strong> {trip.time}
                 </p>
                 <p>
                   <strong>ID:</strong> {trip.id}
