@@ -10,11 +10,11 @@ const Header = ({
       <div className={styles["parent-header"]}>
         <div className={styles["main-header"]}>
           <div className={styles["one-header"]}>
-          <img
+          {/* <img
             className={styles["one-header-img-smartbasket"]}
             src="logo.png"
             alt="SmartBasket"
-          />
+          /> */}
             <span className={styles["one-header-smartbasket"]}>RideShare</span>
           </div>
           <div className={styles["main-parent-list"]}>

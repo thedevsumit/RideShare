@@ -9,7 +9,7 @@ import Header from "./Header";
 // import MainShoppingPage from "./MainShoppingPage";
 // import ShoppingCart from "./ShoppingCart";
 const HomePage = ({ loginTOhome, homepage,fetchData }) => {
-  const [publishride,setpublishride] = useState(0)
+  const [publishride,setpublishride] = useState(1)
   const [joinride,setjoinride] = useState(0)
   const changingPublish  = (val) => {
     setpublishride(val)
