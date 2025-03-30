@@ -2,12 +2,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { incrementNestedValue } from "./Increment";
 import JoinRide from "./JoinRide";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { itemAction } from "../store/counter";
 const AvailableRide = () => {
   const { newItem } = useSelector((store) => store.items);
   const dispatch = useDispatch();
+  const [val,setval] = useState(0)
+  const showAlert = (icon, title, message) => {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: icon,
+      confirmButtonText: "OK",
+      background: "#f8f9fa",
+      color: "#000",
+      timer: 3000,
+    });
+  };
   const handleIncrement = (docId,nestedKey) => {
     incrementNestedValue(docId, nestedKey);
+    localStorage.setItem("joinedRide",1)
+    showAlert("success", "Success", "Successfully joined the ride.");
+  };
+  const handleError = () => {
+    // incrementNestedValue(docId, nestedKey);
+    showAlert("error", "Error", "You have already joined the ride.");
   };
   //   const [joinride,setjoinride] = useState(0)
   return (
@@ -34,13 +53,23 @@ const AvailableRide = () => {
                   <strong>ID:</strong> {trip.id}
                 </p>
                 <p>
-                  <strong>Number of person:</strong> {trip.count}
+                  <strong>Number of person:</strong> {trip.count+val}
                 </p>
                 <button 
                 className="button-avaialble"
                   onClick={() => {
                     dispatch(itemAction.adding(trip));
-                    handleIncrement(trip.id,"count")
+                    if(localStorage.getItem("joinedRide")){
+                      handleError()
+                    }else{
+                      if(!val){
+                        setval(1)
+                        handleIncrement(trip.id,"count")
+                      }
+                    }
+                    
+                   
+                    
                   }}
                 >
                   Join
