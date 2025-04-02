@@ -196,7 +196,7 @@ const [spinnerval,setspinnerval] = useState(0)
             <div className="form-floating">
               <input
                 type="password"
-                className="form-control"
+                className="form-control "
                 id="floatingPassword"
                 placeholder="Password"
                 ref={passwordElement}
@@ -213,7 +213,7 @@ const [spinnerval,setspinnerval] = useState(0)
             >
               Sign Up
             </div>
-            <button className="btn btn-primary w-100 py-2" type="submit">
+            <button className="btn btn-primary w-100 py-2 buttonsign" type="submit">
               Sign In
             </button>
           </form>
