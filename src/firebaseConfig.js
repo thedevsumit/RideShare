@@ -8,14 +8,16 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
-  apiKey: "AIzaSyCkP045vMH0H8uT-trhZjaZjC8LVU04teI",
-  authDomain: "rideshare-5658c.firebaseapp.com",
-  projectId: "rideshare-5658c",
-  storageBucket: "rideshare-5658c.firebasestorage.app",
-  messagingSenderId: "519024819718",
-  appId: "1:519024819718:web:fafdec5820f1ce0615cd87",
-  measurementId: "G-JCX647326G"
+  apiKey: "AIzaSyAXetnr9QgPFw4EkO2rbz8XwOmZUHhQmXo",
+  authDomain: "rideshare-a1c91.firebaseapp.com",
+  projectId: "rideshare-a1c91",
+  storageBucket: "rideshare-a1c91.firebasestorage.app",
+  messagingSenderId: "602643627718",
+  appId: "1:602643627718:web:34ccd8c9ea3ca168b261c7",
+  measurementId: "G-NHQDT34PPV"
 };
+
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
