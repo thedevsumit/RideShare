@@ -188,10 +188,10 @@ const [spinnerval,setspinnerval] = useState(0)
                 type="email"
                 className="form-control"
                 id="floatingInput"
-                placeholder="UserName"
+                placeholder="Email"
                 ref={UserNameElement}
               />
-              <label htmlFor="floatingInput">Username</label>
+              <label htmlFor="floatingInput">Email</label>
             </div>
             <div className="form-floating">
               <input
