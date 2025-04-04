@@ -32,6 +32,7 @@ const AvailableRide = () => {
     // incrementNestedValue(docId, nestedKey);
     // showAlert("error", "Error", "You have already joined the ride.");
     console.log(trip)
+    
     localStorage.setItem("ridedata",trip)
   };
   //   const [joinride,setjoinride] = useState(0)
@@ -67,14 +68,15 @@ const AvailableRide = () => {
                 <button 
                 className="button-avaialble"
                   onClick={() => {
-                    dispatch(itemAction.adding(trip));
-                    handleRide(trip.id)
+                    
                    
                     if(localStorage.getItem("joinedRide")){
                       handleError()
                     }else{
                       if(!val){
                         setval(1)
+                        dispatch(itemAction.adding(trip));
+                    handleRide(trip.id)
                         handleIncrement(trip.id,"count")
                       }
                     }

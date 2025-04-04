@@ -11,6 +11,8 @@ import { itemAction } from "./store/counter";
 const App = () => {
   // const { currLoggedInUser } = useContext(SignIn);
   const dispatch = useDispatch();
+  // localStorage.setItem("joinedRide",0)
+  //   localStorage.setItem("ridedata",1)
   // const { currLoggedInUser } = useContext(SignIn);
   const [signingIn, signup] = useState("SignUp");
   const [homepage, loginpage] = useState(0);
@@ -35,6 +37,7 @@ const App = () => {
     let storedUser = window.localStorage.getItem("currLoggedInUser");
     if (storedUser) {
       loginpage(1);
+      
     }
   }, []);
   const signInToUp = (val) => {
