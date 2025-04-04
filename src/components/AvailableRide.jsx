@@ -59,6 +59,9 @@ const AvailableRide = () => {
                   <strong>ID:</strong> {trip.id}
                 </p>
                 <p>
+                  <strong>ID:</strong> {trip.name}
+                </p>
+                <p>
                   <strong>Number of person:</strong> {trip.count+val}
                 </p>
                 <button 

@@ -4,11 +4,14 @@ import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { VscDebugBreakpointLog } from "react-icons/vsc";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import TiltedCard from './TiltedCard';
 // import { TbPoint } from "react-icons/tb";
 import { itemAction } from "../store/counter";
 import { TbPointFilled } from "react-icons/tb";
+import { div } from "framer-motion/client";
 const PublishRide = ({}) => {
+  // const {username}= JSON.parse(localStorage.getItem("currLoggedInUser"));
   const leavingfrom = useRef();
   const goingto = useRef();
   const dispatch = useDispatch();
@@ -20,11 +23,12 @@ const PublishRide = ({}) => {
   const [alertTitle, setalertTitle] = useState("");
   const [alertIcon, setalertIcon] = useState("");
   const isNumeric = (str) => {
-    return /^\d+$/.test(str);
+    return /^\d+$/.test(str);``
   };
+  const { username } = useSelector((store) => store.userName);
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+// const username = localStorage.getItem("currLoggedInUser");
     const leaving = leavingfrom.current.value;
     const going = goingto.current.value;
     const date = dateofride.current.value;
@@ -43,7 +47,7 @@ const PublishRide = ({}) => {
       date: date,
       time: time,
       count: 0,
-      
+      name: username
     };
 
     leavingfrom.current.value = "";
@@ -74,64 +78,84 @@ const PublishRide = ({}) => {
 
   return (
     <>
-    <div className={styles.mainbody}>
-      <div className={styles["main-login-div"]}>
-        <main className="mainform">
-          <form onSubmit={handleSubmit} className={`${styles.formmain}`}>
-            <h1 className={` ${styles["h1-color"]}`}>Publish Ride</h1>
-            <p className={`${styles.para}`}>
-              Add your trip details, hop in, and go.
-            </p>
-            <div className={`${styles.inputfield}`}>
-              <div className={styles.iconinput}><TbPointFilled/></div>
-              <input
-                type="text"
-                className={`${styles["input-div"]}`}
-                id="leavingFrom"
-                placeholder="Enter location"
-                ref={leavingfrom}
-              />
+      <div className={styles.mainbody}>
+        <div className={styles["main-login-div"]}>
+          <main className="mainform">
+            <form onSubmit={handleSubmit} className={`${styles.formmain}`}>
+              <h1 className={` ${styles["h1-color"]}`}>Publish Ride</h1>
+              <p className={`${styles.para}`}>
+                Add your trip details, hop in, and go.
+              </p>
+              <div className={`${styles.inputfield}`}>
+                <div className={styles.iconinput}>
+                  <TbPointFilled />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles["input-div"]}`}
+                  id="leavingFrom"
+                  placeholder="Enter location"
+                  ref={leavingfrom}
+                />
+              </div>
+              <div className={`${styles.inputfield}`}>
+                <div className={styles.iconinput}>
+                  <VscDebugBreakpointLog />
+                </div>
+                <input
+                  type="text"
+                  className={`${styles["input-div"]}`}
+                  id="goingTO"
+                  placeholder="Enter destination"
+                  ref={goingto}
+                />
+              </div>
+              <div className={`${styles.inputfield}`}>
+                <div className={styles.iconinput}>
+                  <TbPointFilled />
+                </div>
+                <input
+                  type="date"
+                  className={`${styles["input-div"]}`}
+                  ref={dateofride}
+                />
+              </div>
+              <div className={`${styles.inputfield}`}>
+                <div className={styles.iconinput}>
+                  <VscDebugBreakpointLog />
+                </div>
+                <input
+                  type="time"
+                  ref={timeride}
+                  className={`${styles["input-div"]}`}
+                />
+              </div>
 
-            </div>
-            <div className={`${styles.inputfield}`}>
-              <div className={styles.iconinput}><VscDebugBreakpointLog/></div>
-              <input
-                type="text"
-                className={`${styles["input-div"]}`}
-                id="goingTO"
-                placeholder="Enter destination"
-                ref={goingto}
-              />
-            </div>
-            <div className={`${styles.inputfield}`}>
-              <div className={styles.iconinput}><TbPointFilled/></div>
-              <input
-                type="date"
-                className={`${styles["input-div"]}`}
-                ref={dateofride}
-              />
-            </div>
-            <div className={`${styles.inputfield}`}>
-              <div className={styles.iconinput}><VscDebugBreakpointLog/></div>
-              <input
-                type="time"
-                ref={timeride}
-                className={`${styles["input-div"]}`}
-              />
-            </div>
-
-            <button className={`${styles["publish-ride"]}`} type="submit">
-              Publish Ride
-            </button>
-          </form>
-        </main>
-        <div>
-          <img
-            src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_576,w_576/v1683919251/assets/42/a29147-e043-42f9-8544-ecfffe0532e9/original/travel-ilustra.png"
-            alt=""
-          />
+              <button className={`${styles["publish-ride"]}`} type="submit">
+                Publish Ride
+              </button>
+            </form>
+          </main>
+          <div>
+            <TiltedCard
+              imageSrc="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_576,w_576/v1683919251/assets/42/a29147-e043-42f9-8544-ecfffe0532e9/original/travel-ilustra.png"
+              altText="k"
+              captionText=""
+              containerHeight="550px"
+              containerWidth="550px"
+              imageHeight="550px"
+              imageWidth="550px"
+              rotateAmplitude={12}
+              scaleOnHover={1.}
+              showMobileWarning={false}
+              showTooltip={true}
+              displayOverlayContent={true}
+              overlayContent={
+                <div/>
+              }
+            />
+          </div>
         </div>
-      </div>
       </div>
       <div className={`container ${styles["footer-margin"]}`}>
         <footer className="py-3 my-4">

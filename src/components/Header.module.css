@@ -66,4 +66,5 @@ overflow-x: hidden;
 .list-items {
   list-style: none;
   color: #ffffff;
+  cursor: pointer;
 }

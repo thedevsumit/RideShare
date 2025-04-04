@@ -75,7 +75,7 @@ const SignUp = ({ signInToUp, homepage,loginTOhome }) => {
         phoneno: phoneno
       })
       // dispatch(userAction.newName(username))
-      localStorage.setItem("currLoggedInUser", email); 
+      localStorage.setItem("currLoggedInUser", username); 
      }
      
     
