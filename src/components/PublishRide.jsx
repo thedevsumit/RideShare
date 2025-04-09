@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./PublishRide.module.css";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { VscDebugBreakpointLog } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import TiltedCard from './TiltedCard';
+import TiltedCard from "./TiltedCard";
 import { FaCarSide } from "react-icons/fa";
 // import { TbPoint } from "react-icons/tb";
 import { itemAction } from "../store/counter";
@@ -24,12 +24,28 @@ const PublishRide = ({}) => {
   const [alertTitle, setalertTitle] = useState("");
   const [alertIcon, setalertIcon] = useState("");
   const isNumeric = (str) => {
-    return /^\d+$/.test(str);``
+    return /^\d+$/.test(str);
+    ``;
   };
-  const username = window.localStorage.getItem("currLoggedInUser")
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 550);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const width = isMobile ? "80vw" : "550px";
+  const height = isMobile ? "80vw" : "550px";
+
+  const username = window.localStorage.getItem("currLoggedInUser");
   const handleSubmit = async (event) => {
     event.preventDefault();
-// const username = localStorage.getItem("currLoggedInUser");
+    // const username = localStorage.getItem("currLoggedInUser");
     const leaving = leavingfrom.current.value;
     const going = goingto.current.value;
     const date = dateofride.current.value;
@@ -48,7 +64,7 @@ const PublishRide = ({}) => {
       date: date,
       time: time,
       count: 0,
-      name: username
+      name: username,
     };
 
     leavingfrom.current.value = "";
@@ -142,18 +158,16 @@ const PublishRide = ({}) => {
               imageSrc="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_576,w_576/v1683919251/assets/42/a29147-e043-42f9-8544-ecfffe0532e9/original/travel-ilustra.png"
               altText="k"
               captionText=""
-              containerHeight="550px"
-              containerWidth="550px"
-              imageHeight="550px"
-              imageWidth="550px"
+              containerHeight={height}
+              containerWidth={width}
+              imageHeight={height}
+              imageWidth={width}
               rotateAmplitude={12}
-              scaleOnHover={1.}
+              scaleOnHover={1}
               showMobileWarning={false}
               showTooltip={true}
               displayOverlayContent={true}
-              overlayContent={
-                <div/>
-              }
+              overlayContent={<div />}
             />
           </div>
         </div>

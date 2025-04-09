@@ -9,15 +9,30 @@ body {
 }
 .main-login-div {
   margin: 3rem auto 0rem auto;
-  width: 1280px;
-  height: 580px;
+  /* width: 1280px; */
+  /* height: 580px; */
   border-radius: 10px;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 30px;
   justify-content: space-evenly;
 }
+@media screen and (min-width: 1280px) {
+  .main-login-div {
+    margin: 3rem auto 0rem auto;
+    width: 1280px;
+    height: 580px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* gap: 30px; */
+    justify-content: space-evenly;
+  }
+}
 .mainform {
-  width: 459px;
+  max-width: 459px;
 }
 
 .formmain {
