@@ -31,9 +31,7 @@ body {
     justify-content: space-evenly;
   }
 }
-.mainform {
-  max-width: 459px;
-}
+
 
 .formmain {
   display: flex;
