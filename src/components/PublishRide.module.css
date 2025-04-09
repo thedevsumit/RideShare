@@ -17,6 +17,109 @@ body {
   flex-direction: column;
   gap: 30px;
   justify-content: space-evenly;
+
+}
+@media screen and (min-width: 1280px) {
+  .main-login-div {
+    margin: 3rem auto 0rem auto;
+    width: 1280px;
+    height: 580px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* gap: 30px; */
+    justify-content: space-evenly;
+  }
+}
+
+
+.formmain {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 auto;
+}
+.signin-color {
+  color: #030027;
+  padding: 1rem 0rem;
+  text-decoration: none;
+}
+
+.footer-margin {
+  margin-top: 0rem;
+  overflow-x: hidden;
+}
+
+.publish-ride {
+  margin-top: 1rem;
+}
+
+.publish-ride {
+  width: 200px;
+  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 2px;
+  border-width: 0px;
+  padding: 10px 16px;
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
+.inputfield {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 4px;
+}
+.input-div {
+  width: 312px;
+  height: 44px;
+  border: none;
+  background-color: whitesmoke;
+  font-size: 15px;
+  padding: 0px 0px 0px 5px;
+}
+.iconinput {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+}
+.h1-color {
+  color: #000000;
+  font-size: 52px;
+ 
+  width: 400px;
+ 
+  font-weight: 700;
+ line-height: 64px;
+
+  
+}
+@media (max-width:750px){
+  @import url("https://fonts.googleapis.com/css2?family=Delius&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Pacifico&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow-x: hidden;
+}
+.main-login-div {
+  margin: 3rem auto 0rem auto;
+  /* width: 1280px; */
+  /* height: 580px; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-evenly;
 }
 .h1-color {
   color: #000000;
@@ -108,3 +211,4 @@ text-align: center;
   background-color: whitesmoke;
 }
 
+}
