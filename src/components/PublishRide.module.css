@@ -18,9 +18,18 @@ body {
   gap: 30px;
   justify-content: space-evenly;
 }
+.h1-color {
+  color: #000000;
+  font-size: 52px;
+text-align: center;
+  width: 400px;
+
+  font-weight: 700;
+  line-height: 64px;
+}
 @media screen and (min-width: 1280px) {
   .main-login-div {
-    margin: 3rem auto 0rem auto;
+    margin: 3rem auto 0rem 20px;
     width: 1280px;
     height: 580px;
     border-radius: 10px;
@@ -30,13 +39,24 @@ body {
     /* gap: 30px; */
     justify-content: space-evenly;
   }
+  .h1-color {
+    color: #000000;
+    font-size: 52px;
+  /* text-align: center; */
+    width: 400px;
+  
+    font-weight: 700;
+    line-height: 64px;
+  }
 }
-
 
 .formmain {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 .signin-color {
   color: #030027;
@@ -87,14 +107,4 @@ body {
   align-items: center;
   background-color: whitesmoke;
 }
-.h1-color {
-  color: #000000;
-  font-size: 52px;
- 
-  width: 400px;
- 
-  font-weight: 700;
- line-height: 64px;
 
-  
-}

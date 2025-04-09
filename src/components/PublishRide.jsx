@@ -31,7 +31,7 @@ const PublishRide = ({}) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 550);
+      setIsMobile(window.innerWidth < 560);
     };
 
     window.addEventListener("resize", handleResize);
@@ -134,6 +134,7 @@ const PublishRide = ({}) => {
                 <input
                   type="date"
                   className={`${styles["input-div"]}`}
+                  placeholder="Provide Date"
                   ref={dateofride}
                 />
               </div>
@@ -143,6 +144,7 @@ const PublishRide = ({}) => {
                 </div>
                 <input
                   type="time"
+                  placeholder="Provide time"
                   ref={timeride}
                   className={`${styles["input-div"]}`}
                 />
