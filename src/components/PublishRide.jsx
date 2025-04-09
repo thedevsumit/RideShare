@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { VscDebugBreakpointLog } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import TiltedCard from './TiltedCard';
+import { FaCarSide } from "react-icons/fa";
 // import { TbPoint } from "react-icons/tb";
 import { itemAction } from "../store/counter";
 import { TbPointFilled } from "react-icons/tb";
@@ -25,7 +26,7 @@ const PublishRide = ({}) => {
   const isNumeric = (str) => {
     return /^\d+$/.test(str);``
   };
-  const { username } = useSelector((store) => store.userName);
+  const username = window.localStorage.getItem("currLoggedInUser")
   const handleSubmit = async (event) => {
     event.preventDefault();
 // const username = localStorage.getItem("currLoggedInUser");

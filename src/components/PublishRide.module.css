@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
 }
 .main-login-div {
-  margin: 6rem auto 0rem auto;
+  margin: 3rem auto 0rem auto;
   width: 1280px;
   height: 580px;
   border-radius: 10px;
@@ -19,13 +19,7 @@ body {
 .mainform {
   width: 459px;
 }
-.h1-color {
-  color: #000000;
-  font-size: 52px;
-  width: 443px;
-  font-weight: 700;
-  line-height: 64px;
-}
+
 .formmain {
   display: flex;
   flex-direction: column;
@@ -38,7 +32,7 @@ body {
 }
 
 .footer-margin {
-  margin-top: 10rem;
+  margin-top: 0rem;
   overflow-x: hidden;
 }
 
@@ -79,4 +73,15 @@ body {
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
+}
+.h1-color {
+  color: #000000;
+  font-size: 52px;
+ 
+  width: 400px;
+ 
+  font-weight: 700;
+ line-height: 64px;
+
+  
 }

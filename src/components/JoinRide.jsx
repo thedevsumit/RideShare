@@ -2,6 +2,10 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { decrementNestedValue } from "./Decrement";
 import Swal from "sweetalert2";
+import Header from "./Header";
+import Navigaton from "./Navigation";
+import Footer from "./Footer";
+import { div } from "framer-motion/client";
 const JoinRide = () => {
   const showAlert = (icon, title, message) => {
     Swal.fire({
@@ -41,41 +45,48 @@ const JoinRide = () => {
   }, [newItem]);
 
   return (
-    <ul className="travel-lists">
-      {showride === 1 ? (
-        filteredRides.map((trip) => (
-          <li key={trip.id} className="travel-item">
-            <p>
-              <strong>Date:</strong> {trip.date}
-            </p>
-            <p>
-              <strong>Leaving:</strong> {trip.leaving}
-            </p>
-            <p>
-              <strong>Going:</strong> {trip.going}
-            </p>
-            <p>
-              <strong>Time:</strong> {trip.time}
-            </p>
-            <p>
-              <strong>ID:</strong> {trip.id}
-            </p>
-            <button 
-            className="button-avaialble"
-              onClick={() => {
-                // Add your remove logic here
-                handleRemove(trip.id, "count");
-              }}
-            >
-              Remove
-            </button>
-          </li>
-        ))
-      ) : (
-        <div></div>
-      )}
-      {showride === 0 && <p>No rides avaialble</p>}
-    </ul>
+    <>
+      <Header />
+      <Navigaton />
+      <ul className="travel-lists">
+        {filteredRides.length === 0 && <div>You have not joined any ride</div>}
+        
+        {showride === 1 ? (
+          filteredRides.map((trip) => (
+            <li key={trip.id} className="travel-item">
+              <p>
+                <strong>Date:</strong> {trip.date}
+              </p>
+              <p>
+                <strong>Leaving:</strong> {trip.leaving}
+              </p>
+              <p>
+                <strong>Going:</strong> {trip.going}
+              </p>
+              <p>
+                <strong>Time:</strong> {trip.time}
+              </p>
+              <p>
+                <strong>Lead:</strong> {trip.name}
+              </p>
+              <button
+                className="button-avaialble"
+                onClick={() => {
+                
+                  handleRemove(trip.id, "count");
+                }}
+              >
+                Remove
+              </button>
+            </li>
+          ))
+        ) : (
+          <div>No Rides Found.</div>
+        )}
+        
+      </ul>
+      <Footer/>
+    </>
   );
 };
 

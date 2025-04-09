@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import HandlingSignIn from "./components/HandlingSignIn";
+
 import HomePage from "./components/HomePage";
 import { useDispatch } from "react-redux";
 import { auth } from "./firebaseConfig";
@@ -7,15 +7,14 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { userAction } from "./store/privacy";
 import { itemAction } from "./store/counter";
-
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import AvailableRide from "./components/AvailableRide";
+import JoinRide from "./components/JoinRide";
+import Profile from "./components/Profile";
 const App = () => {
-  // const { currLoggedInUser } = useContext(SignIn);
+  
   const dispatch = useDispatch();
-  // localStorage.setItem("joinedRide",0)
-  //   localStorage.setItem("ridedata",1)
-  // const { currLoggedInUser } = useContext(SignIn);
-  const [signingIn, signup] = useState("SignUp");
-  const [homepage, loginpage] = useState(0);
+  // const navigate = useNavigate();
   const [userdetails, setUserDetails] = useState(null);
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
@@ -32,24 +31,16 @@ const App = () => {
   };
   useEffect(() => {
     fetchUserData();
-  }, []);
+    console.log("HElo")
+  },);
   useEffect(() => {
     let storedUser = window.localStorage.getItem("currLoggedInUser");
     if (storedUser) {
-      loginpage(1);
+      
       
     }
   }, []);
-  const signInToUp = (val) => {
-    signup(val);
-  };
 
-  const loginTOhome = (val) => {
-    loginpage(val);
-    if (val === 0) {
-      window.localStorage.removeItem("currLoggedInUser");
-    }
-  };
   
     const fetchData = async () => {
       try {
@@ -69,16 +60,16 @@ const App = () => {
 
   return (
     <>
-      {homepage === 1 ? (
-        <HomePage loginTOhome={loginTOhome} homepage={homepage} fetchData={fetchData}/>
-      ) : (
-        <HandlingSignIn
-          signingIn={signingIn}
-          signInToUp={signInToUp}
-          loginTOhome={loginTOhome}
-          homepage={homepage}
-        />
-      )}
+     <Router>
+      <Routes>
+        <Route path="/" element={<HomePage fetchData={fetchData}/>} />
+        <Route path="/available" element={<AvailableRide />} />
+        <Route path="/joined" element={<JoinRide />} />
+        <Route path="/profile" element={<Profile />} />
+        
+        
+      </Routes>
+     </Router>
     </>
   );
 };

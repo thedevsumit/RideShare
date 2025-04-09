@@ -11,7 +11,7 @@
   align-items: center;
   height: 64px;
   background-color: #000000;
-overflow-x: hidden;
+
   width: 100vw;
 }
 .main-header {
@@ -53,7 +53,7 @@ overflow-x: hidden;
 
 .main-list {
   display: flex;
-  gap: 2rem;
+  gap: 1.7rem;
   justify-content: center;
   align-items: center;
   margin-right: 100px;
@@ -62,9 +62,84 @@ overflow-x: hidden;
   left: -34px;
 }
 
-
 .list-items {
   list-style: none;
   color: #ffffff;
   cursor: pointer;
+}
+
+.login-div {
+  background-color: white;
+  list-style: none;
+  color: #000000;
+  cursor: pointer;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  align-items: center;
+}
+.about-header {
+  color: #ffffff;
+  cursor: pointer;
+  margin-left: 30px;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  align-items: center;
+}
+.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  /* filter: invert(1); */
+}
+.profile {
+  color: #020202;
+  cursor: pointer;
+  background-color: white;
+  height: 40px;
+  padding: 0rem 0.3rem 0rem 1rem;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 600;
+  align-items: center;
+  position: relative;
+}
+
+.sign-out {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #000000;
+  position: absolute;
+  top: 100%; /* shows dropdown below the profile */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  background-color: white;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

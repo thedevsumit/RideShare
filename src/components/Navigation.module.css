@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Delius&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Pacifico&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.parent-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  background-color: #ffffff;
+
+  width: 100vw;
+}
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  background-color: #ffffff;
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.one-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.one-header-smartbasket {
+  font-size: 1.6rem;
+  color: #000000;
+  font-weight: 600;
+  font-family: "Delius", cursive;
+}
+
+
+.main-list {
+  display: flex;
+  gap: 1.7rem;
+  justify-content: center;
+  align-items: center;
+  margin-right: 100px;
+  margin: auto 0;
+  position: relative;
+  left: -34px;
+}
+
+.list-items {
+  list-style: none;
+  color: #000000;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+

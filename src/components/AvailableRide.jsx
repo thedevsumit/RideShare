@@ -4,6 +4,10 @@ import JoinRide from "./JoinRide";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { itemAction } from "../store/counter";
+import Header from "./Header";
+import Navigaton from "./Navigation";
+import Footer from "./Footer";
+import { div } from "framer-motion/client";
 const AvailableRide = () => {
   const { newItem } = useSelector((store) => store.items);
   const dispatch = useDispatch();
@@ -25,12 +29,11 @@ const AvailableRide = () => {
     showAlert("success", "Success", "Successfully joined the ride.");
   };
   const handleError = () => {
-    // incrementNestedValue(docId, nestedKey);
+   
     showAlert("error", "Error", "You have already joined the ride.");
   };
   const handleRide = (trip) => {
-    // incrementNestedValue(docId, nestedKey);
-    // showAlert("error", "Error", "You have already joined the ride.");
+    
     console.log(trip)
     
     localStorage.setItem("ridedata",trip)
@@ -38,7 +41,9 @@ const AvailableRide = () => {
   //   const [joinride,setjoinride] = useState(0)
   return (
     <>
-      
+      <Header/>
+      <Navigaton/>
+      {newItem.length === 0 && <center>No Rides Available at this time</center>}
         <div className="travel-container ">
           
           <ul className="travel-list main-available">
@@ -56,11 +61,9 @@ const AvailableRide = () => {
                 <p>
                   <strong>Time:</strong> {trip.time}
                 </p>
+               
                 <p>
-                  <strong>ID:</strong> {trip.id}
-                </p>
-                <p>
-                  <strong>ID:</strong> {trip.name}
+                  <strong>Lead:</strong> {trip.name}
                 </p>
                 <p>
                   <strong>Number of person:</strong> {trip.count+val}
@@ -91,8 +94,7 @@ const AvailableRide = () => {
             ))}
           </ul>
         </div>
-      
-      
+         <Footer/>
     </>
   );
 };
