@@ -1,17 +1,44 @@
 import { useDispatch, useSelector } from "react-redux";
 import { incrementNestedValue } from "./Increment";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { itemAction } from "../store/counter";
 import Header from "./Header";
 import Navigaton from "./Navigation";
 import Footer from "./Footer";
-import MapDirections from "./MapDirections"; // <-- import map here
+import MapDirections from "./MapDirections";
 
 const AvailableRide = () => {
   const { newItem } = useSelector((store) => store.items);
   const dispatch = useDispatch();
   const [val, setval] = useState(0);
+  const [today, setToday] = useState("");
+ 
+  const [currentTime, setCurrentTime] = useState("");
+  
+  useEffect(() => {
+    const getISTDateTime = () => {
+      const now = new Date();
+      const istOffset = 5.5 * 60 * 60000;
+      const ist = new Date(now.getTime() + istOffset);
+  
+      const year = ist.getUTCFullYear();
+      const month = String(ist.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(ist.getUTCDate()).padStart(2, "0");
+      const hours = String(ist.getUTCHours()).padStart(2, "0");
+      const minutes = String(ist.getUTCMinutes()).padStart(2, "0");
+  
+      const istDate = `${year}-${month}-${day}`;
+      const istTime = `${hours}:${minutes}`;
+  
+      setToday(istDate);
+      setCurrentTime(istTime);
+      
+    };
+  
+    getISTDateTime();
+  }, []);
+  
 
   const showAlert = (icon, title, message) => {
     Swal.fire({
@@ -31,24 +58,18 @@ const AvailableRide = () => {
     showAlert("success", "Success", "Successfully joined the ride.");
   };
 
-  const handleError = () => {
-    showAlert("error", "Error", "You have already joined the ride.");
-  };
-  const handleMax = () => {
-    showAlert("error", "Error", "Maximum number of person reached in that vehicle");
-  };
+  const handleError = () => showAlert("error", "Error", "You have already joined the ride.");
+  const handleMax = () => showAlert("error", "Error", "Maximum number of person reached in that vehicle");
+  const handleLast = () => showAlert("error", "Error", "Login First Only then you can join the ride");
 
-  const handleRide = (tripId) => {
-    localStorage.setItem("ridedata", tripId);
-  };
+  const handleRide = (tripId) => localStorage.setItem("ridedata", tripId);
 
-  const handleLast = () => {
-    showAlert("error", "Error", "Login First Only then you can join the ride");
-  };
-
-  // 🚫 Filter out past rides
-  const today = new Date().toISOString().split("T")[0];
-  const validRides = newItem.filter((trip) => trip.date >= today);
+  const validRides = newItem.filter((trip) => {
+    if (trip.date > today) return true; // Future date
+    if (trip.date === today && trip.time >= currentTime) return true; 
+    return false;
+  });
+  
 
   return (
     <>
@@ -97,7 +118,6 @@ const AvailableRide = () => {
                 Join
               </button>
 
-              {/* 🚗 Google Map Directions */}
               <MapDirections origin={trip.leaving} destination={trip.going} />
             </li>
           ))}
