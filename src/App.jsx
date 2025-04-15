@@ -1,47 +1,40 @@
 import { useEffect, useState } from "react";
-
-import HomePage from "./components/HomePage";
 import { useDispatch } from "react-redux";
 import { auth } from "./firebaseConfig";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import { userAction } from "./store/privacy";
 import { itemAction } from "./store/counter";
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import HomePage from "./components/HomePage";
 import AvailableRide from "./components/AvailableRide";
 import JoinRide from "./components/JoinRide";
 import Profile from "./components/Profile";
-const App = () => {
-  
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  const [userdetails, setUserDetails] = useState(null);
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      const docRef = doc(db, "Users", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserDetails(docSnap.data());
 
-        const userData = docSnap.data();
-        dispatch(userAction.newName(userData.username));
-      } else {
+const App = () => {
+  const dispatch = useDispatch();
+  const [userDetails, setUserDetails] = useState(null);
+
+  // 🧠 Auth Listener
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = doc(db, "Users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setUserDetails(userData);
+          dispatch(userAction.newName(userData.username));
+        }
       }
     });
-  };
-  useEffect(() => {
-    fetchUserData();
-    console.log("HElo")
-  },);
-  useEffect(() => {
-    let storedUser = window.localStorage.getItem("currLoggedInUser");
-    if (storedUser) {
-      
-      
-    }
-  }, []);
 
-  
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  // 🚗 Fetch Ride Data
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "RideData"));
@@ -49,28 +42,25 @@ const App = () => {
           id: doc.id,
           ...doc.data(),
         }));
-       dispatch(itemAction.itemadd(items))
-      
+        dispatch(itemAction.itemadd(items));
       } catch (error) {
-        console.log(error)
+        console.error("Error fetching rides:", error);
       }
     };
-    fetchData();
 
+    fetchData();
+  }, [dispatch]);
 
   return (
-    <>
-     <Router>
+    <Router>
       <Routes>
-        <Route path="/" element={<HomePage fetchData={fetchData}/>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/available" element={<AvailableRide />} />
         <Route path="/joined" element={<JoinRide />} />
         <Route path="/profile" element={<Profile />} />
-        
-        
       </Routes>
-     </Router>
-    </>
+    </Router>
   );
 };
+
 export default App;
