@@ -1,4 +1,4 @@
-// MapDirections.js
+
 import { GoogleMap, DirectionsRenderer, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ const MapDirections = ({ origin, destination }) => {
   const [directions, setDirections] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCSQb3hZRRZxHkpicdGYfUJvwFhjaHBM-M", // Replace with your API key
+    googleMapsApiKey: "AIzaSyCSQb3hZRRZxHkpicdGYfUJvwFhjaHBM-M"
   });
 
   useEffect(() => {

@@ -4,83 +4,89 @@ import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { VscDebugBreakpointLog } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import TiltedCard from "./TiltedCard";
-import { FaCarSide } from "react-icons/fa";
-// import { TbPoint } from "react-icons/tb";
-import { itemAction } from "../store/counter";
 import { TbPointFilled } from "react-icons/tb";
-import { div } from "framer-motion/client";
-const PublishRide = ({}) => {
-  // const {username}= JSON.parse(localStorage.getItem("currLoggedInUser"));
+
+const PublishRide = () => {
   const leavingfrom = useRef();
   const goingto = useRef();
-  const dispatch = useDispatch();
-  // const [spinnerval,setspinnerval] = useState(0)
   const dateofride = useRef();
-  const refTest = collection(db, "RideData");
   const timeride = useRef();
+  const dispatch = useDispatch();
+  const refTest = collection(db, "RideData");
+
   const [alertMsg, setalertMsg] = useState("");
   const [alertTitle, setalertTitle] = useState("");
   const [alertIcon, setalertIcon] = useState("");
-  const isNumeric = (str) => {
-    return /^\d+$/.test(str);
-    ``;
-  };
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
+  const [vehicleType, setVehicleType] = useState("auto");
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 560);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const width = isMobile ? "80vw" : "550px";
   const height = isMobile ? "80vw" : "550px";
-
   const username = window.localStorage.getItem("currLoggedInUser");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const username = localStorage.getItem("currLoggedInUser");
+
     const leaving = leavingfrom.current.value;
     const going = goingto.current.value;
     const date = dateofride.current.value;
     const time = timeride.current.value;
 
     if (!leaving || !going || !date || !time) {
-      setalertIcon("error");
-      setalertMsg("Please fill in all the details first.");
-      setalertTitle("Error");
       showAlert("error", "Error", "Please fill in all the details first.");
       return;
     }
-    let data = {
+
+    // 🔥 Check if the entered date is not in the past
+    const today = new Date().toISOString().split("T")[0];
+    if (date < today) {
+      showAlert("error", "Error", "You cannot publish a ride for a past date.");
+      return;
+    }
+
+    const data = {
       leaving: leaving,
       going: going,
       date: date,
       time: time,
+      vehicleType: vehicleType,
       count: 0,
       name: username,
     };
 
+    try {
+      if (localStorage.getItem("currLoggedInUser")) {
+        await addDoc(refTest, data);
+        showAlert("success", "Success", "Successfully posted the ride.");
+      } else {
+        showAlert(
+          "error",
+          "Error",
+          "Login First Then only you can publish ride"
+        );
+        return;
+      }
+    } catch (err) {
+      showAlert("error", "Error", "Error posting ride. Try again.");
+    }
+
+    // Reset fields
     leavingfrom.current.value = "";
     goingto.current.value = "";
     dateofride.current.value = "";
     timeride.current.value = "";
-    try {
-      addDoc(refTest, data);
-      // dispatch(itemAction.itemadd(data))
-      showAlert("success", "Success", "Successfully posted the ride.");
-    } catch (err) {
-      // alert("Some error occured in database. Contact the developer");
-      showAlert("success", "Success", "Successfully posted the ride.");
-    }
+    setVehicleType("auto");
   };
-
   const showAlert = (icon, title, message) => {
     Swal.fire({
       title: title,
@@ -92,7 +98,6 @@ const PublishRide = ({}) => {
       timer: 3000,
     });
   };
-
   return (
     <>
       <div className={styles.mainbody}>
@@ -103,62 +108,79 @@ const PublishRide = ({}) => {
               <p className={`${styles.para}`}>
                 Add your trip details, hop in, and go.
               </p>
+
               <div className={`${styles.inputfield}`}>
                 <div className={styles.iconinput}>
                   <TbPointFilled />
                 </div>
                 <input
                   type="text"
-                  className={`${styles["input-div"]}`}
-                  id="leavingFrom"
+                  className={styles["input-div"]}
                   placeholder="Enter location"
                   ref={leavingfrom}
                 />
               </div>
-              <div className={`${styles.inputfield}`}>
+
+              <div className={styles.inputfield}>
                 <div className={styles.iconinput}>
                   <VscDebugBreakpointLog />
                 </div>
                 <input
                   type="text"
-                  className={`${styles["input-div"]}`}
-                  id="goingTO"
+                  className={styles["input-div"]}
                   placeholder="Enter destination"
                   ref={goingto}
                 />
               </div>
-              <div className={`${styles.inputfield}`}>
+
+              <div className={styles.inputfield}>
                 <div className={styles.iconinput}>
                   <TbPointFilled />
                 </div>
                 <input
                   type="date"
-                  className={`${styles["input-div"]}`}
-                  placeholder="Provide Date"
+                  className={styles["input-div"]}
                   ref={dateofride}
                 />
               </div>
-              <div className={`${styles.inputfield}`}>
+
+              <div className={styles.inputfield}>
                 <div className={styles.iconinput}>
                   <VscDebugBreakpointLog />
                 </div>
                 <input
                   type="time"
-                  placeholder="Provide time"
+                  className={styles["input-div"]}
                   ref={timeride}
-                  className={`${styles["input-div"]}`}
                 />
               </div>
 
-              <button className={`${styles["publish-ride"]}`} type="submit">
+              <div className={styles.inputfield}>
+                <div className={styles.iconinput}>
+                  <TbPointFilled />
+                </div>
+                <select
+                  name="autotaxi"
+                  id="autotaxi"
+                  className={styles["input-div"]}
+                  value={vehicleType}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                >
+                  <option value="auto">Auto</option>
+                  <option value="taxi">Taxi</option>
+                </select>
+              </div>
+
+              <button className={styles["publish-ride"]} type="submit">
                 Publish Ride
               </button>
             </form>
           </main>
+
           <div>
             <TiltedCard
               imageSrc="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_576,w_576/v1683919251/assets/42/a29147-e043-42f9-8544-ecfffe0532e9/original/travel-ilustra.png"
-              altText="k"
+              altText="Ride illustration"
               captionText=""
               containerHeight={height}
               containerWidth={width}
@@ -174,6 +196,7 @@ const PublishRide = ({}) => {
           </div>
         </div>
       </div>
+
       <div className={`container ${styles["footer-margin"]}`}>
         <footer className="py-3 my-4">
           <ul className="nav justify-content-center border-bottom pb-3 mb-3">
@@ -201,4 +224,5 @@ const PublishRide = ({}) => {
     </>
   );
 };
+
 export default PublishRide;

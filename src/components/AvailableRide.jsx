@@ -34,38 +34,63 @@ const AvailableRide = () => {
   const handleError = () => {
     showAlert("error", "Error", "You have already joined the ride.");
   };
-
-  const handleRide = (trip) => {
-    localStorage.setItem("ridedata", trip);
+  const handleMax = () => {
+    showAlert("error", "Error", "Maximum number of person reached in that vehicle");
   };
+
+  const handleRide = (tripId) => {
+    localStorage.setItem("ridedata", tripId);
+  };
+
+  const handleLast = () => {
+    showAlert("error", "Error", "Login First Only then you can join the ride");
+  };
+
+  // 🚫 Filter out past rides
+  const today = new Date().toISOString().split("T")[0];
+  const validRides = newItem.filter((trip) => trip.date >= today);
 
   return (
     <>
       <Header />
       <Navigaton />
-      {newItem.length === 0 && <center>No Rides Available at this time</center>}
+      {validRides.length === 0 && <center>No Rides Available at this time</center>}
       <div className="travel-container">
         <ul className="travel-list main-available">
-          {newItem.map((trip) => (
+          {validRides.map((trip) => (
             <li key={trip.id} className="travel-item">
               <p><strong>Date:</strong> {trip.date}</p>
               <p><strong>Leaving:</strong> {trip.leaving}</p>
               <p><strong>Going:</strong> {trip.going}</p>
               <p><strong>Time:</strong> {trip.time}</p>
               <p><strong>Lead:</strong> {trip.name}</p>
+              <p><strong>Vehicle Type:</strong> {trip.vehicleType}</p>
               <p><strong>Number of person:</strong> {trip.count + val}</p>
+
               <button
                 className="button-avaialble"
                 onClick={() => {
-                  if (localStorage.getItem("joinedRide")) {
-                    handleError();
-                  } else {
-                    if (!val) {
-                      setval(1);
-                      dispatch(itemAction.adding(trip));
-                      handleRide(trip.id);
-                      handleIncrement(trip.id, "count");
+                  if (localStorage.getItem("currLoggedInUser")) {
+                    if (localStorage.getItem("joinedRide")) {
+                      handleError();
+                    } else {
+                      if (!val) {
+                        if (trip.count > 8 && trip.vehicleType === "auto") {
+                          handleMax();
+                          return;
+                        }
+                        if (trip.count > 3 && trip.vehicleType === "taxi") {
+                          handleMax();
+                          return;
+                        }
+                        setval(1);
+                        dispatch(itemAction.adding(trip));
+                        handleRide(trip.id);
+                        handleIncrement(trip.id, "count");
+                      }
                     }
+                  } else {
+                    handleLast();
                   }
                 }}
               >

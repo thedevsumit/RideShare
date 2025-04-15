@@ -69,6 +69,9 @@ const JoinRide = () => {
               <p>
                 <strong>Lead:</strong> {trip.name}
               </p>
+              <p>
+                <strong>Vehicle Type:</strong> {trip.vehicleType}
+              </p>
               <button
                 className="button-avaialble"
                 onClick={() => {
