@@ -12,6 +12,7 @@ import AvailableRide from "./components/AvailableRide";
 import JoinRide from "./components/JoinRide";
 import Profile from "./components/Profile";
 import Help from "./components/Help";
+import AboutUs from "./components/About";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const App = () => {
         <Route path="/joined" element={<JoinRide />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </Router>
   );

@@ -31,7 +31,9 @@ const Header = ({ fetchData }) => {
         <div className={styles["main-header"]}>
           <div className={styles["one-header"]}>
             <span className={styles["one-header-smartbasket"]}>RideShare</span>
-            <span className={styles["about-header"]}>
+            <span className={styles["about-header"]} onClick={()=>{
+              navigate("/about")
+            }}>
               About <IoMdArrowDropdown className={styles["dropdown-icon"]} />
             </span>
           </div>
