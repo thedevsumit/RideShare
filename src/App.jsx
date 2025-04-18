@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage";
 import AvailableRide from "./components/AvailableRide";
 import JoinRide from "./components/JoinRide";
 import Profile from "./components/Profile";
+import Help from "./components/Help";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const App = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  // 🚗 Fetch Ride Data
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,10 +55,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage/>} />
         <Route path="/available" element={<AvailableRide />} />
         <Route path="/joined" element={<JoinRide />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/help" element={<Help />} />
       </Routes>
     </Router>
   );

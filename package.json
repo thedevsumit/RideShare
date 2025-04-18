@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.6.1",
     "bootstrap": "^5.3.3",
+    "emailjs": "^4.0.3",
     "firebase": "^11.5.0",
     "framer-motion": "^12.6.3",
     "notyf": "^3.10.0",

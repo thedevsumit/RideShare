@@ -8,12 +8,14 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Notyf } from "notyf";
 import { useEffect, useState } from "react";
 import { Dropdown } from "bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ fetchData }) => {
   initializeApp(firebaseConfig);
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   var notyf = new Notyf();
+  const navigate = useNavigate()
   const [userDetails, setUserDetails] = useState(null);
   useEffect(() => {
     const storedUser = window.localStorage.getItem("currLoggedInUser");
@@ -36,7 +38,9 @@ const Header = ({ fetchData }) => {
 
           <div className={styles["main-parent-list"]}>
             <ul className={styles["main-list"]}>
-              <li className={styles["list-items"]}>Help</li>
+              <li className={styles["list-items"]} onClick={()=>{
+                navigate("/help")
+              }}>Help</li>
               {(userDetails === null || userDetails === undefined) && (
                 <li
                   className={styles["login-div"]}
