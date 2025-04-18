@@ -10,8 +10,10 @@ import {
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigaton from "./Navigation";
+import Spinner from "./Spinner";
 const Help = ({ sidebar, setSidebar }) => {
   const [message, setMessage] = useState("");
+  const [spinner, setSpinner] = useState(0);
 
   const handleSend = () => {
     const userEmail = localStorage.getItem("currLoggedInUser");
@@ -38,7 +40,8 @@ const Help = ({ sidebar, setSidebar }) => {
       user_email: userEmail,
       message,
     };
-
+    document.querySelector("#root").style.opacity = "0.6";
+    setSpinner(1)
     emailjs
       .send(
         "service_8s4d2ki",
@@ -47,9 +50,11 @@ const Help = ({ sidebar, setSidebar }) => {
         "JifYqhhdqIB67-9nF"
       )
       .then(() => {
+        setSpinner(0)
+        document.querySelector("#root").style.opacity = "1";
         Swal.fire(
           "Sent!",
-          "Your message has been sent successfully 📩",
+          "Your message has been sent successfully",
           "success"
         );
         setMessage("");
@@ -94,7 +99,7 @@ const Help = ({ sidebar, setSidebar }) => {
             Send Message
           </button>
         </div>
-
+      {spinner === 1 &&  <Spinner/>}
         <p className="contact-footer">
           We’ll get back to you via your registered email.
         </p>
@@ -134,6 +139,7 @@ const Help = ({ sidebar, setSidebar }) => {
         </div>
       </div>
       </div>
+      
       <Footer/>
     </>
   );
