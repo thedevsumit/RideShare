@@ -16,23 +16,67 @@ const PublishRide = () => {
   const dispatch = useDispatch();
   const refTest = collection(db, "RideData");
 
-  const [alertMsg, setalertMsg] = useState("");
-  const [alertTitle, setalertTitle] = useState("");
-  const [alertIcon, setalertIcon] = useState("");
   const [vehicleType, setVehicleType] = useState("auto");
-
   const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
+  const width = isMobile ? "80vw" : "550px";
+  const height = isMobile ? "80vw" : "550px";
+  const username = window.localStorage.getItem("currLoggedInUser");
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 560);
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  const width = isMobile ? "80vw" : "550px";
-  const height = isMobile ? "80vw" : "550px";
-  const username = window.localStorage.getItem("currLoggedInUser");
+    const loadAutocomplete = () => {
+      if (window.google && window.google.maps && window.google.maps.places) {
+        const options = {
+          types: ["geocode"], // enables full address search
+          componentRestrictions: { country: "in" }, // restrict to India
+        };
+
+        const autocompleteLeaving = new window.google.maps.places.Autocomplete(
+          leavingfrom.current,
+          options
+        );
+
+        const autocompleteGoing = new window.google.maps.places.Autocomplete(
+          goingto.current,
+          options
+        );
+
+        // Optional: log coordinates
+        autocompleteLeaving.addListener("place_changed", () => {
+          const place = autocompleteLeaving.getPlace();
+          console.log("Leaving From:", place.formatted_address);
+          if (place.geometry) {
+            console.log("Lat:", place.geometry.location.lat());
+            console.log("Lng:", place.geometry.location.lng());
+          }
+        });
+
+        autocompleteGoing.addListener("place_changed", () => {
+          const place = autocompleteGoing.getPlace();
+          console.log("Going To:", place.formatted_address);
+          if (place.geometry) {
+            console.log("Lat:", place.geometry.location.lat());
+            console.log("Lng:", place.geometry.location.lng());
+          }
+        });
+      }
+    };
+
+    if (document.readyState === "complete") {
+      loadAutocomplete();
+    } else {
+      window.addEventListener("load", loadAutocomplete);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", loadAutocomplete);
+    };
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,7 +91,6 @@ const PublishRide = () => {
       return;
     }
 
-    // 🔥 Check if the entered date is not in the past
     const today = new Date().toISOString().split("T")[0];
     if (date < today) {
       showAlert("error", "Error", "You cannot publish a ride for a past date.");
@@ -55,11 +98,11 @@ const PublishRide = () => {
     }
 
     const data = {
-      leaving: leaving,
-      going: going,
-      date: date,
-      time: time,
-      vehicleType: vehicleType,
+      leaving,
+      going,
+      date,
+      time,
+      vehicleType,
       count: 0,
       name: username,
     };
@@ -74,42 +117,42 @@ const PublishRide = () => {
           "Error",
           "Login First Then only you can publish ride"
         );
-        return;
       }
     } catch (err) {
       showAlert("error", "Error", "Error posting ride. Try again.");
     }
 
-    // Reset fields
     leavingfrom.current.value = "";
     goingto.current.value = "";
     dateofride.current.value = "";
     timeride.current.value = "";
     setVehicleType("auto");
   };
+
   const showAlert = (icon, title, message) => {
     Swal.fire({
-      title: title,
+      title,
       text: message,
-      icon: icon,
+      icon,
       confirmButtonText: "OK",
       background: "#f8f9fa",
       color: "#000",
       timer: 3000,
     });
   };
+
   return (
     <>
       <div className={styles.mainbody}>
         <div className={styles["main-login-div"]}>
           <main className="mainform">
-            <form onSubmit={handleSubmit} className={`${styles.formmain}`}>
-              <h1 className={` ${styles["h1-color"]}`}>Publish Ride</h1>
-              <p className={`${styles.para}`}>
+            <form onSubmit={handleSubmit} className={styles.formmain}>
+              <h1 className={styles["h1-color"]}>Publish Ride</h1>
+              <p className={styles.para}>
                 Add your trip details, hop in, and go.
               </p>
 
-              <div className={`${styles.inputfield}`}>
+              <div className={styles.inputfield}>
                 <div className={styles.iconinput}>
                   <TbPointFilled />
                 </div>
@@ -160,8 +203,6 @@ const PublishRide = () => {
                   <TbPointFilled />
                 </div>
                 <select
-                  name="autotaxi"
-                  id="autotaxi"
                   className={styles["input-div"]}
                   value={vehicleType}
                   onChange={(e) => setVehicleType(e.target.value)}
@@ -216,9 +257,7 @@ const PublishRide = () => {
               </a>
             </li>
           </ul>
-          <p className="text-center text-body-secondary">
-            © 2025 RideShare, NITJ
-          </p>
+          <p className="text-center text-body-secondary">© 2025 RideShare, NITJ</p>
         </footer>
       </div>
     </>
