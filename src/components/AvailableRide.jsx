@@ -7,6 +7,8 @@ import Header from "./Header";
 import Navigaton from "./Navigation";
 import Footer from "./Footer";
 import MapDirections from "./MapDirections";
+import { doc, deleteDoc } from "firebase/firestore"; 
+import { db } from "../firebaseConfig";
 
 const AvailableRide = () => {
   const { newItem } = useSelector((store) => store.items);
@@ -33,13 +35,39 @@ const AvailableRide = () => {
   
       setToday(istDate);
       setCurrentTime(istTime);
-      
+  
+      cleanExpiredRides(istDate, istTime);
+    };
+  
+    const cleanExpiredRides = (todayDate, nowTime) => {
+      newItem.forEach((trip) => {
+        const isExpired =
+          trip.date < todayDate ||
+          (trip.date === todayDate && trip.time < nowTime);
+  
+        if (isExpired) {
+          deleteRideFromDB(trip.id);
+  
+          const joinedId = localStorage.getItem("ridedata");
+          if (joinedId === trip.id) {
+            localStorage.removeItem("ridedata");
+            localStorage.removeItem("joinedRide");
+          }
+        }
+      });
     };
   
     getISTDateTime();
-  }, []);
+  }, [newItem]);
   
-
+  const deleteRideFromDB = async (tripId) => {
+    try {
+      await deleteDoc(doc(db, "RideData", tripId)); 
+      console.log(`Deleted ride with id: ${tripId}`);
+    } catch (error) {
+      console.error("Error deleting ride:", error);
+    }
+  };
   const showAlert = (icon, title, message) => {
     Swal.fire({
       title: title,
@@ -65,7 +93,7 @@ const AvailableRide = () => {
   const handleRide = (tripId) => localStorage.setItem("ridedata", tripId);
 
   const validRides = newItem.filter((trip) => {
-    if (trip.date > today) return true; // Future date
+    if (trip.date > today) return true; 
     if (trip.date === today && trip.time >= currentTime) return true; 
     return false;
   });

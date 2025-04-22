@@ -21,7 +21,6 @@ const PublishRide = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
   const width = isMobile ? "80vw" : "550px";
   const height = isMobile ? "80vw" : "550px";
-  const username = window.localStorage.getItem("currLoggedInUser");
 
   useEffect(() => {
     const handleResize = () => {
@@ -97,7 +96,7 @@ const PublishRide = () => {
       showAlert("error", "Error", "You cannot publish a ride for a past date.");
       return;
     }
-
+    const username = window.localStorage.getItem("currLoggedInUser");
     const data = {
       leaving,
       going,
@@ -239,7 +238,7 @@ const PublishRide = () => {
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };
