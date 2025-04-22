@@ -45,7 +45,7 @@ const PublishRide = () => {
           options
         );
 
-        // Optional: log coordinates
+      
         autocompleteLeaving.addListener("place_changed", () => {
           const place = autocompleteLeaving.getPlace();
           console.log("Leaving From:", place.formatted_address);

@@ -36,7 +36,7 @@ const App = () => {
   }, [dispatch]);
 
  
-  useEffect(() => {
+ 
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "RideData"));
@@ -50,13 +50,13 @@ const App = () => {
       }
     };
 
-    fetchData();
-  }, [dispatch]);
+    
+
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
+        <Route path="/" element={<HomePage fetchData={fetchData}/>} />
         <Route path="/available" element={<AvailableRide />} />
         <Route path="/joined" element={<JoinRide />} />
         <Route path="/profile" element={<Profile />} />
