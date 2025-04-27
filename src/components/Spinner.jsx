@@ -1,9 +1,8 @@
-import styles from "./Spinner.module.css";
 const Spinner = () => {
   return (
-    <div className={`text-center ${styles.loggingspinner}`}>
-      <div className={`spinner-border logging ${styles.logging}`} role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div className="text-center absolute">
+      <div className="spinner-border relative -top-[150px] left-[280px]" role="status">
+        <span className="sr-only">Loading...</span>
       </div>
     </div>
   );
