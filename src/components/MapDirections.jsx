@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const containerStyle = {
   width: "100%",
-  height: "200px",
+  height: "100%",
 };
 
 const MapDirections = ({ origin, destination }) => {

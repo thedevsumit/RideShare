@@ -7,7 +7,6 @@ const userSlice = createSlice({
         newName: (state,action) => {
             state.username = action.payload
         },
-       
     }
 })
 export default userSlice;
