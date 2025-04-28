@@ -10,7 +10,6 @@ const InitialLoader = ({ onComplete }) => {
   }
   
   useEffect(() => {
-    // Set visible after component mounts to trigger animation
     setIsVisible(true);
     
     if (loadingProgress < 100) {
@@ -23,12 +22,12 @@ const InitialLoader = ({ onComplete }) => {
               setIsVisible(false);
               setTimeout(() => {
                 onComplete();
-              }, 800); // Wait for exit animation to complete
+              }, 800); 
             }, 500);
           }
           return newProgress;
         });
-      }, 30); // Speed of progress increase
+      }, 30); 
       
       return () => clearInterval(interval);
     }
@@ -36,11 +35,9 @@ const InitialLoader = ({ onComplete }) => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-[#f8efe4] flex flex-col items-center justify-center z-50 font-poppins overflow-hidden transition-opacity duration-700 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      className={`fixed w-full h-full inset-0 bg-[#f8efe4] flex flex-col items-center justify-center z-50 font-poppins overflow-hidden transition-opacity duration-700 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
     >
-      {/* Center content */}
       <div className="relative w-full max-w-4xl flex flex-col items-center justify-center px-4 sm:px-6">
-        {/* Elegant text animation */}
         <div className="text-center mb-6 sm:mb-8 md:mb-12">
           <h1 
             className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 text-[#222] tracking-wide transition-all duration-700 ease-out ${isVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-5'}`}

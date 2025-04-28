@@ -1,43 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
-import { FaEnvelope, FaPhoneAlt, FaInstagram, FaWhatsapp, FaQuestionCircle, FaArrowRight } from "react-icons/fa";
+import { FaEnvelope, FaPhoneAlt, FaInstagram, FaWhatsapp, FaQuestionCircle, FaArrowRight, FaSpinner, FaPaperPlane } from "react-icons/fa";
 import { motion } from "framer-motion";
+import notification from "./SimpleNotification";
 
 const Help = ({ sidebar, setSidebar }) => {
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState("contact");
 
-  const handleSend = () => {
-    const userEmail = localStorage.getItem("currLoggedInUser");
+  useEffect(() => {
+    // Get the logged-in user's email when component mounts
+    const loggedInEmail = localStorage.getItem("currLoggedInUser");
+    if (loggedInEmail) {
+      setUserEmail(loggedInEmail);
+    }
+  }, []);
 
-    if (!userEmail && !email) {
-      Swal.fire({
-        title: "Email Required",
-        text: "Please log in or provide your email address to send us a message.",
-        icon: "warning",
-        background: "#fff",
-        confirmButtonColor: "#d92626"
-      });
+  const handleSend = () => {
+    const loggedInEmail = localStorage.getItem("currLoggedInUser");
+
+    if (!loggedInEmail && !email) {
+      notification.showError("Please log in or provide your email address to send us a message.");
       return;
     }
 
     if (message.trim().length === 0) {
-      Swal.fire({
-        title: "Empty Message",
-        text: "Please write something before sending.",
-        icon: "warning",
-        background: "#fff",
-        confirmButtonColor: "#d92626"
-      });
+      notification.showError("Please write something before sending.");
       return;
     }
 
     const templateParams = {
-      user_email: userEmail || email,
+      user_email: loggedInEmail || email,
       user_name: name,
       message,
     };
@@ -53,13 +51,7 @@ const Help = ({ sidebar, setSidebar }) => {
       )
       .then(() => {
         setIsSubmitting(false);
-        Swal.fire({
-          title: "Message Sent!",
-          text: "Thank you for reaching out. We'll get back to you as soon as possible.",
-          icon: "success",
-          background: "#fff",
-          confirmButtonColor: "#d92626"
-        });
+        notification.showSuccess("Message Sent!");
         setMessage("");
         setEmail("");
         setName("");
@@ -67,13 +59,7 @@ const Help = ({ sidebar, setSidebar }) => {
       .catch((err) => {
         console.error("EmailJS Error:", err);
         setIsSubmitting(false);
-        Swal.fire({
-          title: "Error",
-          text: "Could not send message. Please try again later.",
-          icon: "error",
-          background: "#fff",
-          confirmButtonColor: "#d92626"
-        });
+        notification.showError("Could not send message. Please try again later.");
       });
   };
 
@@ -195,6 +181,20 @@ const Help = ({ sidebar, setSidebar }) => {
                     </>
                   )}
                   
+                  {localStorage.getItem("currLoggedInUser") && (
+                    <div>
+                      <label htmlFor="userEmail" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                      <input
+                        type="email"
+                        id="userEmail"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed text-sm sm:text-base"
+                        value={userEmail}
+                        disabled
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Your message will be sent from this email address</p>
+                    </div>
+                  )}
+                  
                   <div>
                     <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Your Message</label>
                     <textarea
@@ -207,14 +207,25 @@ const Help = ({ sidebar, setSidebar }) => {
                     />
                   </div>
                   
-                  <button
-                    onClick={handleSend}
-                    disabled={isSubmitting}
-                    className={`w-full inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white text-sm sm:text-base font-medium transition-all ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#d92626] to-[#ff4f4f] hover:shadow-lg transform hover:scale-[1.01]'}`}
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                    {!isSubmitting && <FaArrowRight className="ml-2" />}
-                  </button>
+                  <div className="text-right">
+                    <button
+                      onClick={handleSend}
+                      className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 bg-[#d92626] hover:bg-[#c51e1e] text-white font-medium rounded-lg transition-colors text-sm sm:text-base disabled:bg-opacity-70 disabled:cursor-not-allowed"
+                      disabled={isSubmitting || (!message || (!localStorage.getItem("currLoggedInUser") && (!name || !email)))}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <FaSpinner className="animate-spin mr-2" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <FaPaperPlane className="mr-2" />
+                          Send Message
+                        </>
+                      )}
+                    </button>
+                  </div>
                   
                   {localStorage.getItem("currLoggedInUser") && (
                     <p className="text-xs sm:text-sm text-gray-500 text-center">
@@ -316,7 +327,7 @@ const Help = ({ sidebar, setSidebar }) => {
             <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-1 sm:mb-2">Instagram</h3>
             <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Follow us for updates and support.</p>
             <a 
-              href="https://instagram.com/rideshare" 
+              href="https://instagram.com/deep.i3_" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-[#d92626] text-sm sm:text-base font-medium hover:text-[#c31e1e] flex items-center"
