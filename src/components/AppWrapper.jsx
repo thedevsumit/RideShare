@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import InitialLoader from './InitialLoader';
+import NotificationWrapper from './NotificationWrapper';
 
 const AppWrapper = ({ children }) => {
   const [showLoader, setShowLoader] = useState(true);
@@ -18,28 +19,30 @@ const AppWrapper = ({ children }) => {
 
   const renderWithStripAnimation = () => {
     return (
-      <div className="relative overflow-hidden w-full h-full">
-        <div className="relative z-10">
-          {content}
-        </div>
-        
-        {!animationComplete && (
-          <div className="strips-container fixed inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={`strip-${index}`}
-                className={`strip strip-${index} absolute h-[20vh] w-[150vw] bg-gradient-to-r from-[#d92626] to-[#ff4f4f] left-[-10vw]`}
-                style={{ 
-                  animationDelay: `${0.1 * index}s`,
-                  zIndex: 20 - index,
-                  top: `${index * 20}vh`,
-                  animation: 'stripAnimation 1.2s forwards cubic-bezier(0.645, 0.045, 0.355, 1.000)'
-                }}
-              />
-            ))}
+      <NotificationWrapper>
+        <div className="relative overflow-hidden w-full h-full">
+          <div className="relative z-10">
+            {content}
           </div>
-        )}
-      </div>
+          
+          {!animationComplete && (
+            <div className="strips-container fixed inset-0 overflow-hidden pointer-events-none">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div
+                  key={`strip-${index}`}
+                  className={`strip strip-${index} absolute h-[20vh] w-[150vw] bg-gradient-to-r from-[#d92626] to-[#ff4f4f] left-[-10vw]`}
+                  style={{ 
+                    animationDelay: `${0.1 * index}s`,
+                    zIndex: 20 - index,
+                    top: `${index * 20}vh`,
+                    animation: 'stripAnimation 1.2s forwards cubic-bezier(0.645, 0.045, 0.355, 1.000)'
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </NotificationWrapper>
     );
   };
 

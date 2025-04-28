@@ -669,3 +669,25 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
     transform: scaleY(0);
   }
 }
+
+/* Notification styles */
+#notification-root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+@media (max-width: 640px) {
+  #notification-root .fixed {
+    top: 1rem;
+    right: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+  
+  #notification-root .max-w-sm {
+    max-width: 100%;
+  }
+}
+
+/* Additional responsive styles for other components */

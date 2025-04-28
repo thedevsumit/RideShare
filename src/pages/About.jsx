@@ -3,11 +3,13 @@ import { FaUsers, FaMapMarkedAlt, FaClock, FaShieldAlt, FaCode, FaDownload, FaUs
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 import image6 from "../assets/HeroImages/Image6.jpg"
 import image7 from "../assets/HeroImages/Image7.jpg"
 
 const AboutUs = () => {
+  const navigate = useNavigate();
   const features = [
     {
       icon: <FaMapMarkedAlt className="text-2xl sm:text-3xl md:text-4xl" />,
@@ -168,7 +170,9 @@ const AboutUs = () => {
                   From the bustling city streets to the serene suburbs, our ride-sharing platform connects you to a world of possibilities
                 </p>
                 <div className="flex justify-center">
-                  <button className="px-6 sm:px-8 py-2 sm:py-3 bg-[#d92626] text-white rounded-full text-sm sm:text-base md:text-lg font-medium hover:bg-[#c31e1e] transition duration-300">
+                  <button 
+                  onClick={() => navigate('/available')}
+                  className="px-6 sm:px-8 py-2 sm:py-3 bg-[#d92626] text-white rounded-full text-sm sm:text-base md:text-lg font-medium hover:bg-[#c31e1e] transition duration-300">
                     Book a Ride
                   </button>
                 </div>
@@ -282,11 +286,11 @@ const AboutUs = () => {
                 </div>
               </div>
               
-              <div className="text-center text-xs sm:text-sm text-gray-600 italic font-light">
-                Note: This project was completed as part of the Design Thinking & Innovation course requirement.
-              </div>
+              
             </div>
           </motion.div>
+
+
         </div>
       </section>
       <Footer />
