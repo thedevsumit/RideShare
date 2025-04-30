@@ -21,7 +21,7 @@ const Footer = () => {
               <a href="#" className="text-gray-300 hover:text-rideco-red transition-colors duration-300">
                 <FaTwitter className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
-              <a href="#" className="text-gray-300 hover:text-rideco-red transition-colors duration-300">
+              <a href="http://instagram.com/ridesharenitj/" className="text-gray-300 hover:text-rideco-red transition-colors duration-300">
                 <FaInstagram className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a href="#" className="text-gray-300 hover:text-rideco-red transition-colors duration-300">

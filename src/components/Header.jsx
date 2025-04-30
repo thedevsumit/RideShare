@@ -279,6 +279,7 @@ const Header = ({ theme = "light" }) => {
                       const user = result.user;
                       if (user.email.endsWith("@nitj.ac.in")) {
                         notyf.success("Login Successful");
+                        console.log(user)
                       } else {
                         notyf.error("Login Failed, Please use NITJ email");
                         return;

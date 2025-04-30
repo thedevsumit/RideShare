@@ -236,7 +236,7 @@ const AboutUs = () => {
                     </li>
                     <li className="flex items-center">
                       <FaEnvelope className="mr-2 sm:mr-3 text-[#d92626] flex-shrink-0" />
-                      <span><strong>Contact:</strong> rideshare.nitj@gmail.com</span>
+                      <span><strong>Contact:</strong> helprideshare@gmail.com</span>
                     </li>
                     <li className="flex items-center">
                       <FaCode className="mr-2 sm:mr-3 text-[#d92626] flex-shrink-0" />

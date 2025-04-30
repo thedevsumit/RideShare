@@ -183,7 +183,7 @@ const Help = ({ sidebar, setSidebar }) => {
                   
                   {localStorage.getItem("currLoggedInUser") && (
                     <div>
-                      <label htmlFor="userEmail" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                      <label htmlFor="userEmail" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Your Name</label>
                       <input
                         type="email"
                         id="userEmail"
@@ -332,7 +332,7 @@ const Help = ({ sidebar, setSidebar }) => {
               rel="noopener noreferrer"
               className="text-[#d92626] text-sm sm:text-base font-medium hover:text-[#c31e1e] flex items-center"
             >
-              @rideshare <FaArrowRight className="ml-2 text-xs sm:text-sm" />
+              @ridesharenitj <FaArrowRight className="ml-2 text-xs sm:text-sm" />
             </a>
           </div>
         </motion.div>

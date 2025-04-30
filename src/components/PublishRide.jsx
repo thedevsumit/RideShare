@@ -162,6 +162,7 @@ const PublishRide = () => {
       setActiveVehicle("auto");
     } catch (err) {
       notification.showError("Error posting ride. Try again.");
+      console.log(err)
     } finally {
       setIsSubmitting(false);
     }
