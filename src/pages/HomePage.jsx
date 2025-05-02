@@ -87,7 +87,7 @@ const HomePage = () => {
       {/* Ride With Us Section */}
       <section className="py-10 sm:py-16 lg:py-24 bg-rideco-beige overflow-hidden relative px-4 sm:px-8 md:px-12 lg:px-20 xl:px-28">
         <div className="max-w-7xl lg:max-w-[90%] xl:max-w-[85%] mx-auto">
-          {/* Section Title */}
+          {/* Section Title */} 
           <div className="text-center mb-8 sm:mb-12 lg:mb-16 lg:px-24">
             <motion.h2 
               initial={{ opacity: 0, y: -20 }}
@@ -111,9 +111,8 @@ const HomePage = () => {
             </motion.p>
           </div>
           
-          {/* Content with image and text overlay */}
+
           <div className="relative rounded-lg overflow-hidden">
-            {/* Background Image - Hidden on mobile, visible on larger screens */}
             <div className="hidden md:block relative h-[470px]">
               <img 
                 src={image2}

@@ -277,7 +277,7 @@ const AboutUs = () => {
                     className="flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-[#d92626] text-white rounded-lg text-sm sm:text-base font-medium hover:bg-[#c31e1e] transition duration-300"
                     onClick={(e) => {
                       e.preventDefault();
-                      window.open("https://example.com/rideshare-project-report.pdf", "_blank");
+                      window.open("https://drive.google.com/file/d/1N-ljUBgIvS3shitZJJ49HrXJHSQ7qNN8/view?usp=drive_link", "_blank");
                     }}
                   >
                     <FaDownload className="mr-2" />
