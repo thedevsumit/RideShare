@@ -327,7 +327,7 @@ const Help = ({ sidebar, setSidebar }) => {
             <h3 className="text-base sm:text-lg font-medium text-gray-800 mb-1 sm:mb-2">Instagram</h3>
             <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Follow us for updates and support.</p>
             <a 
-              href="https://instagram.com/deep.i3_" 
+              href="https://instagram.com/ridesharenitj" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-[#d92626] text-sm sm:text-base font-medium hover:text-[#c31e1e] flex items-center"

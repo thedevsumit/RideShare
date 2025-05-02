@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-rideco-dark text-white">
       <div className="w-full py-8 md:py-12  sm:px-6 lg:px-28 px-4">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4">
-          {/* Company Info */}
           <div className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1">
             <div className="flex items-center">
               <span className="text-xl sm:text-2xl font-bold">RideShare</span>

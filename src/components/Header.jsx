@@ -29,7 +29,6 @@ const Header = ({ theme = "light" }) => {
     }
   }, []);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -39,7 +38,6 @@ const Header = ({ theme = "light" }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Disable scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -47,13 +45,11 @@ const Header = ({ theme = "light" }) => {
       document.body.style.overflow = '';
     }
 
-    // Cleanup function
     return () => {
       document.body.style.overflow = '';
     };
   }, [mobileMenuOpen]);
 
-  // Handle outside click for rides dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ridesDropdownRef.current && !ridesDropdownRef.current.contains(event.target)) {
@@ -68,30 +64,25 @@ const Header = ({ theme = "light" }) => {
     };
   }, []);
 
-  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Toggle rides dropdown on click
   const toggleRidesDropdown = () => {
     setRidesDropdownClicked(!ridesDropdownClicked);
     setRidesDropdownVisible(!ridesDropdownVisible);
   };
 
-  // Handle mouse enter on rides dropdown
   const handleRidesMouseEnter = () => {
     setRidesDropdownVisible(true);
   };
 
-  // Handle mouse leave on rides dropdown
   const handleRidesMouseLeave = () => {
     if (!ridesDropdownClicked) {
       setRidesDropdownVisible(false);
     }
   };
 
-  // Determine text color based on theme and scroll state
   const getTextColor = () => {
     if (theme === "dark") {
       return "text-slate-800";
@@ -104,12 +95,10 @@ const Header = ({ theme = "light" }) => {
   const bgColor = theme === "dark" ? "bg-transparent" : isScrolled ? "bg-white/80" : "bg-transparent";
   const mobileMenuBg = theme === "dark" ? "bg-white" : "bg-[#f8efe4]";
   
-  // Hamburger icon color
   const hamburgerColor = mobileMenuOpen ? "text-slate-800" : isScrolled ? "text-slate-800" : "text-white";
 
   const navLinkClasses = `${textColor} font-poppins px-2 py-3 text-[16px] cursor-pointer relative group transition-all duration-300 ease-in-out`;
 
-  // Mobile menu variants for animation
   const menuVariants = {
     open: { 
       opacity: 1, 
@@ -135,7 +124,6 @@ const Header = ({ theme = "light" }) => {
     }
   };
 
-  // Mobile menu item variants
   const itemVariants = {
     open: { opacity: 1, y: 0 },
     closed: { opacity: 0, y: -10 }
@@ -145,7 +133,6 @@ const Header = ({ theme = "light" }) => {
     <header className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-300 ${bgColor} ${isScrolled ? 'shadow-md backdrop-blur-sm' : ''}`}>
       <div className="w-full sm:px-6 md:px-16 lg:px-28 px-4">
         <div className="flex items-center h-16">
-          {/* Logo */}
           <div className="flex-1 flex items-center">
             <div 
               onClick={() => navigate("/")}
@@ -155,7 +142,6 @@ const Header = ({ theme = "light" }) => {
             </div>
           </div>
           
-          {/* Desktop Navigation Links - Hidden on mobile */}
           <div className="hidden md:flex items-center justify-center gap-4">
             <button 
               onClick={() => navigate("/")} 
@@ -163,7 +149,7 @@ const Header = ({ theme = "light" }) => {
             >
               <span>Home</span>
               <span className="absolute bottom-3 left-1/2 w-0 h-0.5 bg-[#d92626] group-hover:w-1/2 transition-all duration-300 ease-in-out origin-left"></span>
-              <span className="absolute bottom-3 right-1/2 w-0 h-0.5 bg-[#d92626] group-hover:w-1/2 transition-all duration-300 ease-in-out origin-right"></span>
+              <span className="absolute bottom-3 right-1/2 w-0 h-0.5  bg-[#d92626] group-hover:w-1/2 transition-all duration-300 ease-in-out origin-right"></span>
             </button>
             <button 
               onClick={() => navigate("/about")} 
@@ -236,7 +222,6 @@ const Header = ({ theme = "light" }) => {
             </div>
           </div>
 
-          {/* Desktop Auth Buttons - Hidden on mobile */}
           <div className="hidden md:flex justify-end items-center pl-6">
             {userDetails ? (
               <div
@@ -259,8 +244,8 @@ const Header = ({ theme = "light" }) => {
                         notyf.success("Logged out Successfully!");
                       }}
                     >
-                      Sign Out
-                    </button>
+                      Sign Out 
+                    </button>    
                   </div>
                 )}
               </div>
