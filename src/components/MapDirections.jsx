@@ -11,7 +11,7 @@ const MapDirections = ({ origin, destination }) => {
   const [directions, setDirections] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCSQb3hZRRZxHkpicdGYfUJvwFhjaHBM-M"
+    googleMapsApiKey: import.meta.env.GOOGLE_API_KEY
   });
 
   useEffect(() => {
